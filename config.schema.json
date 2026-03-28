@@ -1,8 +1,8 @@
 {
-  "pluginAlias": "TuyaPlatform",
+  "pluginAlias": "TuyaPlatformMatter",
   "pluginType": "platform",
   "singular": true,
-  "headerDisplay": "Homebridge Tuya platorm. maintained by talrhv",
+  "headerDisplay": "Homebridge Tuya Matter, by Tal Rahav.",
   "footerDisplay": "",
   "schema": {
     "type": "object",
@@ -11,7 +11,7 @@
         "title": "Name",
         "type": "string",
         "required": true,
-        "default": "TuyaPlatform",
+        "default": "TuyaPlatformMatter",
         "description": "You shouldn't need to change this."
       },
       "options": {
