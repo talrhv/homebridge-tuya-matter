@@ -5,21 +5,21 @@ import TuyaSHOpenAPI from "../lib/tuyashopenapi.mjs";
 import TuyaOpenMQ from "../lib/tuyamqttapi.mjs";
 import TuyaMatterBridge from "../lib/matter_support.mjs";
 
-// Accessories
-import OutletAccessory from "../lib/outlet_accessory.mjs";
-import LightAccessory from "../lib/light_accessory.mjs";
-import SwitchAccessory from "../lib/switch_accessory.mjs";
-import SmokeSensorAccessory from "../lib/smokesensor_accessory.mjs";
-import Fanv2Accessory from "../lib/fanv2_accessory.mjs";
-import HeaterAccessory from "../lib/heater_accessory.mjs";
-import GarageDoorAccessory from "../lib/garagedoor_accessory.mjs";
-import AirPurifierAccessory from "../lib/air_purifier_accessory.mjs";
-import WindowCoveringAccessory from "../lib/window_covering_accessory.mjs";
-import ContactSensorAccessory from "../lib/contactsensor_accessory.mjs";
-import LeakSensorAccessory from "../lib/leak_sensor_accessory.mjs";
-import PushAccessory from "../lib/push_accessory.mjs";
-import MotionSensorAccessory from "../lib/motionsensor_accessory.mjs";
-import ValveAccessory from "../lib/valve_accessory.mjs";
+// HAP Accessories
+import OutletAccessory from "../lib/accessories/hap/outlet_accessory.mjs";
+import LightAccessory from "../lib/accessories/hap/light_accessory.mjs";
+import SwitchAccessory from "../lib/accessories/hap/switch_accessory.mjs";
+import SmokeSensorAccessory from "../lib/accessories/hap/smokesensor_accessory.mjs";
+import Fanv2Accessory from "../lib/accessories/hap/fanv2_accessory.mjs";
+import HeaterAccessory from "../lib/accessories/hap/heater_accessory.mjs";
+import GarageDoorAccessory from "../lib/accessories/hap/garagedoor_accessory.mjs";
+import AirPurifierAccessory from "../lib/accessories/hap/air_purifier_accessory.mjs";
+import WindowCoveringAccessory from "../lib/accessories/hap/window_covering_accessory.mjs";
+import ContactSensorAccessory from "../lib/accessories/hap/contactsensor_accessory.mjs";
+import LeakSensorAccessory from "../lib/accessories/hap/leak_sensor_accessory.mjs";
+import PushAccessory from "../lib/accessories/hap/push_accessory.mjs";
+import MotionSensorAccessory from "../lib/accessories/hap/motionsensor_accessory.mjs";
+import ValveAccessory from "../lib/accessories/hap/valve_accessory.mjs";
 
 import LogUtil from "../util/logutil.mjs";
 import DataUtil from "../util/datautil.mjs";
