@@ -311,6 +311,7 @@ class TuyaPlatform {
         break;
       case "fs":
       case "fskg":
+      case "fsd":
         deviceAccessory = new Fanv2Accessory(this, homebridgeAccessory, device);
         break;
       case "ywbj":
