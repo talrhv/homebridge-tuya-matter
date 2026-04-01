@@ -29,13 +29,26 @@
 
 ## 🛠 Installation (Homebridge UI)
 
-The easiest way to install the plugin is through the official **Homebridge Web Interface**:
+1. Tuya Developer Platform Setup (Required)
+  Before installing the plugin, you must configure a cloud project to obtain your Access ID and Access Key.
 
-1. Open your Homebridge dashboard.
-2. Navigate to the **Plugins** tab.
-3. Search for **`homebridge-tuya-matter`**.
-4. Click **Install**.
-5. Restart Homebridge and follow the configuration steps in the UI.
+  Please follow the official step-by-step instructions here:
+  👉 https://developer.tuya.com/en/docs/iot/Tuya_Homebridge_Plugin?id=Kamcldj76lhzt
+
+> [!WARNING]
+  **Important Note: Follow the steps in the link above ONLY to set up your cloud project and obtain your credentials.**
+  **Ignore the section titled "Install the Homebridge plugin of Tuya" in that documentation. That refers to the legacy Tuya plugin. You are here to install the next-generation homebridge-tuya-matter instead!**
+
+ > [!IMPORTANT]
+  Ensure you have linked your Tuya/SmartLife app account to your cloud project as described in the guide, or your devices will not appear in      Homebridge.
+
+2. Plugin Installation (Homebridge UI)
+A. Once you have your credentials, the easiest way to install the plugin is through the official Homebridge Web Interface:
+B. Open your Homebridge dashboard.
+C. Navigate to the Plugins tab.
+D. Search for homebridge-tuya-matter.
+E. Click Install.
+F. Restart Homebridge and follow the configuration steps in the UI.
 
 *Note: Since this is currently in beta, look for the version tagged as `@beta` in the search results if you want the latest Matter features.*
 
