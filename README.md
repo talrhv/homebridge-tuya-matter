@@ -5,6 +5,7 @@
   <img src="https://img.shields.io/badge/Homebridge-2.0%20%E2%89%A5%20beta.75-orange?style=for-the-badge" alt="Homebridge 2.0">
   <img src="https://img.shields.io/badge/Matter-Beta%20Support-green?style=for-the-badge" alt="Matter Support">
   <img src="https://img.shields.io/github/license/talrhv/homebridge-tuya-matter?style=for-the-badge" alt="MIT License">
+<img src="https://img.shields.io/badge/homebridge-verified-blueviolet?color=%23491F59&style=for-the-badge&logoColor=%23FFFFFF&logo=homebridge)](https://github.com/homebridge/homebridge/wiki/Verified-Plugins" alt="Homebridge Verified">
 </p>
 
 ---
