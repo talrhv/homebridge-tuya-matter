@@ -35,7 +35,11 @@
   Please follow the official step-by-step instructions here:
   👉 https://developer.tuya.com/en/docs/iot/Tuya_Homebridge_Plugin?id=Kamcldj76lhzt
 
-  [!IMPORTANT]
+> [!WARNING]
+  **Important Note: Follow the steps in the link above ONLY to set up your cloud project and obtain your credentials.**
+  **Ignore the section titled "Install the Homebridge plugin of Tuya" in that documentation. That refers to the legacy Tuya plugin. You are here to install the next-generation homebridge-tuya-matter instead!**
+
+ > [!IMPORTANT]
   Ensure you have linked your Tuya/SmartLife app account to your cloud project as described in the guide, or your devices will not appear in      Homebridge.
 
 2. Plugin Installation (Homebridge UI)
