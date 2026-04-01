@@ -30,10 +30,10 @@
 ## 🛠 Installation (Homebridge UI)
 
 1. Tuya Developer Platform Setup (Required)
-Before installing the plugin, you must configure a cloud project to obtain your Access ID and Access Key.
+  Before installing the plugin, you must configure a cloud project to obtain your Access ID and Access Key.
 
   Please follow the official step-by-step instructions here:
-  👉 Install the Homebridge Plugin of Tuya - Tuya Developer Platform
+  👉 https://developer.tuya.com/en/docs/iot/Tuya_Homebridge_Plugin?id=Kamcldj76lhzt
 
   [!IMPORTANT]
   Ensure you have linked your Tuya/SmartLife app account to your cloud project as described in the guide, or your devices will not appear in      Homebridge.
