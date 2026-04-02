@@ -1,6 +1,6 @@
 {
   "name": "homebridge-tuya-matter",
-  "version": "1.0.0-beta.11",
+  "version": "1.0.0-beta.12",
   "type": "module",
   "description": "The Next-Generation Tuya Integration.",
   "main": "index.mjs",
