@@ -42,11 +42,18 @@ class TuyaPlatform {
     this.devices = [];
     this.onMQTTMessage = this.onMQTTMessage.bind(this);
 
+    // Create the deferred promise in the constructor so it exists before
+    // Homebridge can call configureMatterAccessory.
+    this._initDone = new Promise((resolve) => {
+      this._resolveInit = resolve;
+    });
+
     if (!this.config?.options) {
       this.log.warn(
         "The config.json configuration is incorrect, disabling plugin.",
       );
       this.disabled = true;
+      this._resolveInit(); // unblock waiters immediately if disabled
       return;
     }
 
@@ -70,6 +77,7 @@ class TuyaPlatform {
 
   async handleDidFinishLaunching() {
     if (this.disabled) {
+      this._resolveInit();
       return;
     }
 
@@ -80,15 +88,16 @@ class TuyaPlatform {
       await this.loadMatterApi();
       this.matterReady = true;
       await this.registerMatterDevices(this.devices);
-
     } catch (error) {
       this.matterReady = false;
       this.log.warn(
         "[Matter] Failed to load the Matter API. Continuing without Matter support.",
       );
       this.log.debug(error?.stack || String(error));
+    } finally {
+      // Always unblock configureMatterAccessory, regardless of success or failure.
+      this._resolveInit();
     }
-
   }
 
   async loadMatterApi() {
@@ -134,18 +143,22 @@ class TuyaPlatform {
 
   /**
    * Homebridge calls this to restore Matter accessories from cache.
-   * Cached Matter accessories are re-registered automatically after this callback.
+   * Waits for initTuyaSDK to complete so this.devices is populated
+   * before restoring the accessory.
    */
   async configureMatterAccessory(accessory) {
-    // await this.loadMatterApi();
     if (this.disabled) {
       return;
     }
 
+    // Wait for initTuyaSDK (and the full launch sequence) to complete
+    // before trying to restore, so this.devices is populated.
+    await this._initDone;
+
     this.log.debug(
       `[Matter] Restoring accessory from cache: ${accessory.displayName}`,
     );
-    this.matterBridge.restoreAccessory(accessory,this.devices);
+    this.matterBridge.restoreAccessory(accessory, this.devices);
   }
 
   async initTuyaSDK(config) {
