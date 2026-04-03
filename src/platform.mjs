@@ -39,6 +39,7 @@ class TuyaPlatform {
     this.dataUtil = new DataUtil();
     this.matterReady = false;
     this.matterApiLoadPromise = null;
+    this.devices = [];
     this.onMQTTMessage = this.onMQTTMessage.bind(this);
 
     if (!this.config?.options) {
@@ -75,8 +76,11 @@ class TuyaPlatform {
     this.log.info("Initializing TuyaPlatform...");
 
     try {
+      await this.initTuyaSDK(this.config);
       await this.loadMatterApi();
       this.matterReady = true;
+      await this.registerMatterDevices(this.devices);
+
     } catch (error) {
       this.matterReady = false;
       this.log.warn(
@@ -85,7 +89,6 @@ class TuyaPlatform {
       this.log.debug(error?.stack || String(error));
     }
 
-    await this.initTuyaSDK(this.config);
   }
 
   async loadMatterApi() {
@@ -134,7 +137,7 @@ class TuyaPlatform {
    * Cached Matter accessories are re-registered automatically after this callback.
    */
   async configureMatterAccessory(accessory) {
-    await this.loadMatterApi();
+    // await this.loadMatterApi();
     if (this.disabled) {
       return;
     }
@@ -142,7 +145,7 @@ class TuyaPlatform {
     this.log.debug(
       `[Matter] Restoring accessory from cache: ${accessory.displayName}`,
     );
-    this.matterBridge.restoreAccessory(accessory);
+    this.matterBridge.restoreAccessory(accessory,this.devices);
   }
 
   async initTuyaSDK(config) {
@@ -161,20 +164,18 @@ class TuyaPlatform {
       return;
     }
 
-    let devices = [];
     try {
-      devices = await this.getDevices(projectType);
+      this.devices = await this.getDevices(projectType);
     } catch (error) {
       this.log.error("Failed to fetch Tuya devices.");
       this.log.error(error);
       return;
     }
 
-    for (const device of devices) {
+    for (const device of this.devices) {
       this.addAccessory(device);
     }
 
-    await this.registerMatterDevices(devices);
     await this.startRealtimeUpdates(projectType);
   }
 
