@@ -367,19 +367,18 @@ class TuyaPlatform {
           this.dataUtil.getSubService(device.status),
         );
         break;
-      case "pir": {
+      case "pir":
+      case "hps":
+      case "ms": {
         const pirConfig = (this.config?.options?.motion || []).find(
-          (entry) => entry?.deviceId === deviceId,
+          (entry) => !entry?.deviceId || entry?.deviceId === deviceId,
+        ) ?? { overrideTuya: 0 };
+        deviceAccessory = new MotionSensorAccessory(
+          this,
+          homebridgeAccessory,
+          device,
+          pirConfig.overrideTuya,
         );
-
-        if (pirConfig) {
-          deviceAccessory = new MotionSensorAccessory(
-            this,
-            homebridgeAccessory,
-            device,
-            pirConfig.overrideTuya,
-          );
-        }
         break;
       }
       case "kg": {
