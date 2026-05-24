@@ -369,7 +369,8 @@ class TuyaPlatform {
         break;
       case "pir":
       case "hps":
-      case "ms": {
+      case "ms":
+      case "gg": {
         const pirConfig = (this.config?.options?.motion || []).find(
           (entry) => !entry?.deviceId || entry?.deviceId === deviceId,
         ) ?? { overrideTuya: 0 };
