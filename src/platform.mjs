@@ -38,6 +38,7 @@ class TuyaPlatform {
     this.log = new LogUtil(log, Boolean(this.config?.options?.debug));
     this.dataUtil = new DataUtil();
     this.matterReady = false;
+    this.tutaInitialized = false;
     this.matterApiLoadPromise = null;
     this.devices = [];
     this.onMQTTMessage = this.onMQTTMessage.bind(this);
@@ -138,7 +139,6 @@ class TuyaPlatform {
    */
   async configureMatterAccessory(accessory) {
 
-    // await this.loadMatterApi();
     if (this.disabled) {
       return;
     }
@@ -146,7 +146,8 @@ class TuyaPlatform {
     this.log.debug(
       `[Matter] Restoring accessory from cache: ${accessory.displayName}`,
     );
-    this.matterBridge.restoreAccessory(accessory,this.devices);
+
+    this.matterBridge.restoreAccessory(accessory,accessory.context?.device);
   }
 
   async initTuyaSDK(config) {
