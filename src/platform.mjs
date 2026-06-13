@@ -148,10 +148,6 @@ class TuyaPlatform {
     );
 
     this.matterBridge.restoreAccessory(accessory, accessory.context?.device);
-    // Rebind handlers immediately so they are present when Homebridge's
-    // Matter server starts. Device is null here; closures only need the
-    // deviceId from context, which is available at invocation time.
-    this.matterBridge.rebindHandlers(accessory, null, null);
   }
 
   async initTuyaSDK(config) {
