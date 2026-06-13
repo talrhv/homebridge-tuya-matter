@@ -9,3 +9,4 @@ config
 .homebridge-debug/persist/IdentifierCache.CC223DE3CE30.json
 .vscode
 .homebridge-debug
+docs/
