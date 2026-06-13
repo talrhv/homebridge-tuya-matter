@@ -370,27 +370,39 @@ class TuyaPlatform {
           this.dataUtil.getSubService(device.status),
         );
         break;
-      case "pir": {
+      case "pir":
+      case "hps":
+      case "ms":
+      case "gg": {
         const pirConfig = (this.config?.options?.motion || []).find(
-          (entry) => entry?.deviceId === deviceId,
+          (entry) => !entry?.deviceId || entry?.deviceId === deviceId,
+        ) ?? { overrideTuya: 0 };
+        deviceAccessory = new MotionSensorAccessory(
+          this,
+          homebridgeAccessory,
+          device,
+          pirConfig.overrideTuya,
         );
-
-        if (pirConfig) {
+        break;
+      }
+      case "kg": {
+        // Some kg-category devices are actually presence sensors (radar/mmWave)
+        if (device.status?.some((s) => s.code === "presence_state")) {
+          const pirConfig = (this.config?.options?.motion || []).find(
+            (entry) => !entry?.deviceId || entry?.deviceId === deviceId,
+          ) ?? { overrideTuya: 0 };
           deviceAccessory = new MotionSensorAccessory(
             this,
             homebridgeAccessory,
             device,
             pirConfig.overrideTuya,
           );
+          break;
         }
-        break;
-      }
-      case "kg": {
         const deviceData = this.dataUtil.getSubService(device.status);
         const valveConfig = (this.config?.options?.valve || []).find(
           (entry) => entry?.deviceId === deviceId && entry?.isActive === true,
         );
-
         deviceAccessory = valveConfig
           ? new ValveAccessory(this, homebridgeAccessory, device, deviceData)
           : new SwitchAccessory(this, homebridgeAccessory, device, deviceData);
