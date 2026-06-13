@@ -76,12 +76,16 @@ class TuyaPlatform {
 
     this.log.info("Initializing TuyaPlatform...");
 
+    // Load the Matter API and re-register cached accessories from cache FIRST,
+    // before the (slow) Tuya cloud login. Homebridge does not auto-recreate Matter
+    // endpoints for cached accessories — only the plugin can. Doing it up front
+    // keeps the bridge populated the instant Apple Home reconnects after a restart,
+    // preventing accessories from being moved to the Default Room or dropped during
+    // the otherwise-empty startup window.
     try {
-      await this.initTuyaSDK(this.config);
       await this.loadMatterApi();
       this.matterReady = true;
-      await this.registerMatterDevices(this.devices);
-
+      await this.matterBridge.registerCachedAccessories();
     } catch (error) {
       this.matterReady = false;
       this.log.warn(
@@ -90,6 +94,14 @@ class TuyaPlatform {
       this.log.debug(error?.stack || String(error));
     }
 
+    // Tuya cloud login + device discovery + HAP setup + realtime MQTT updates.
+    await this.initTuyaSDK(this.config);
+
+    // Reconcile Matter accessories with live device data and register any devices
+    // that could not be restored early (e.g. no persisted snapshot yet).
+    if (this.matterReady) {
+      await this.registerMatterDevices(this.devices);
+    }
   }
 
   async loadMatterApi() {
