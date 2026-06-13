@@ -54,33 +54,6 @@ F. Restart Homebridge and follow the configuration steps in the UI.
 
 ---
 
-## ⚠️ Known Issue: Accessories Reset to Bridge Room After Restart
-
-> [!WARNING]
-> Due to a known bug in Apple Home or the Matter bridge stack (the exact root cause is unclear), restarting Homebridge may cause all accessories on the Matter bridge to be moved back to the room where the bridge itself is installed, losing your custom room assignments.
-
-**How to prevent it:**
-
-The most reliable workaround is to stay active in the Home app during the restart:
-
-1. Open the Home app on your iPhone **before** restarting Homebridge.
-2. Restart Homebridge.
-3. As soon as Homebridge finishes restarting, **quickly tap one of your switches several times** until it responds.
-
-Keeping the Home app active and triggering a device interaction right after reconnection usually prevents accessories from being re-roomed.
-
-**How to recover if it happens:**
-
-If accessories end up in the wrong room and you cannot move them:
-
-1. **Remove the bridge from Home app** — go to the bridge accessory, scroll down, and remove it.
-2. On your iPhone, go to **Settings → General → VPN & Device Management → Matter Accessories** (or **Settings → General → Matter Accessories**, depending on iOS version).
-3. Find your Homebridge bridge in the list, tap it, and **wait 1–2 minutes** until the spinner stops.
-4. Go back to the Home app, tap **Add Accessory**, and select your bridge.
-5. The bridge will be added again and you will be able to assign each accessory to any room.
-
----
-
 ##  📜 Disclaimer & Credits
 **homebridge-tuya-matter is an independent project developed by Tal Rahav.**
 
