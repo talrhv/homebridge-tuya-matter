@@ -54,24 +54,12 @@ F. Restart Homebridge and follow the configuration steps in the UI.
 
 ---
 
-## ⚠️ Known Issue: Accessories Reset to Bridge Room After Restart
+## ✅ Fixed: Accessories Reset to Bridge Room After Restart
 
-> [!WARNING]
-> Due to a known bug in Apple Home or the Matter bridge stack (the exact root cause is unclear), restarting Homebridge may cause all accessories on the Matter bridge to be moved back to the room where the bridge itself is installed, losing your custom room assignments.
+> [!NOTE]
+> Earlier versions re-registered every cached Matter accessory on each restart, which re-created its Matter endpoint with a new number. Apple Home treated this as a structural change and moved accessories back to the bridge's room (losing custom names/icons), and commands to the old endpoint failed with `UnsupportedEndpoint`. This has been fixed: cached accessories now keep their endpoints stable across restarts, so room/name/icon assignments persist — just like the HAP protocol.
 
-**How to prevent it:**
-
-The most reliable workaround is to stay active in the Home app during the restart:
-
-1. Open the Home app on your iPhone **before** restarting Homebridge.
-2. Restart Homebridge.
-3. As soon as Homebridge finishes restarting, **quickly tap one of your switches several times** until it responds.
-
-Keeping the Home app active and triggering a device interaction right after reconnection usually prevents accessories from being re-roomed.
-
-**How to recover if it happens:**
-
-If accessories end up in the wrong room and you cannot move them:
+**If your accessories are already stuck in the wrong room** (paired with an affected version), recover once with the steps below; after that, restarts will keep your assignments.
 
 1. **Remove the bridge from Home app** — go to the bridge accessory, scroll down, and remove it.
 2. On your iPhone, go to **Settings → General → VPN & Device Management → Matter Accessories** (or **Settings → General → Matter Accessories**, depending on iOS version).
