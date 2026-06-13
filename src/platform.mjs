@@ -202,6 +202,8 @@ class TuyaPlatform {
       options.countryCode,
       options.appSchema,
       this.log,
+      options.lang ?? "en",
+      options.endPointOverride || null,
     );
   }
 

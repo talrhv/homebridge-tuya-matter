@@ -63,6 +63,18 @@
             "default": "",
             "description": "Your two integer country code"
           },
+          "endPointOverride": {
+            "title": "API Endpoint Override",
+            "type": "string",
+            "description": "Override the Tuya API server selected automatically from your country code. Use this if your devices fail to connect, appear offline, or you receive authentication errors — some users in certain regions are routed to the wrong server by default. Leave set to Auto for normal operation.",
+            "oneOf": [
+              { "title": "Auto (determined by country code)", "enum": [""] },
+              { "title": "Americas (US, Canada, Latin America)", "enum": ["https://openapi.tuyaus.com"] },
+              { "title": "Europe (EU, UK, Middle East, Africa)", "enum": ["https://openapi.tuyaeu.com"] },
+              { "title": "India", "enum": ["https://openapi.tuyain.com"] },
+              { "title": "China", "enum": ["https://openapi.tuyacn.com"] }
+            ]
+          },
           "valve": {
             "title": "switch with timer",
             "type": "array",
