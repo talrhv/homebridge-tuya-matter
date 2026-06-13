@@ -444,7 +444,7 @@ class TuyaPlatform {
 
     const uuid = this.api.hap.uuid.generate(deviceId);
     const deviceAccessory = this.deviceAccessories.get(uuid);
-    if (deviceAccessory) {
+    if (deviceAccessory && Array.isArray(message.status)) {
       try {
         deviceAccessory.updateState(message);
       } catch (error) {
