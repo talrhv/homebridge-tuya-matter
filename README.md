@@ -19,6 +19,20 @@
 
 ---
 
+## ☕ Support This Project
+
+If you find **homebridge-tuya-matter** useful, please consider supporting its ongoing development:
+
+<p align="center">
+  <a href="https://www.paypal.me/talrhv" target="_blank">
+    <img src="https://img.shields.io/badge/PayPal-Buy%20Me%20a%20Coffee-blue?style=for-the-badge&logo=paypal" alt="Buy Me A Coffee">
+  </a>
+</p>
+
+Your support helps keep this project active and enables faster feature development and bug fixes! 🙏
+
+---
+
 ## 🚀 Key Improvements
 
 * **Native Matter Stack:** Bridges your devices directly via the Homebridge 2.0 Matter Controller.
