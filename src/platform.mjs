@@ -433,9 +433,11 @@ class TuyaPlatform {
         }
         const deviceData = this.dataUtil.getSubService(device.status);
         const valveConfig = (this.config?.options?.valve || []).find(
-          (entry) => entry?.deviceId === deviceId && entry?.isActive === true,
+          (entry) => entry?.deviceId === deviceId,
         );
-        deviceAccessory = valveConfig
+        const valveProtocol = valveConfig?.protocol ?? "hap";
+        const useValveForHap = valveProtocol === "hap" || valveProtocol === "both";
+        deviceAccessory = useValveForHap
           ? new ValveAccessory(this, homebridgeAccessory, device, deviceData)
           : new SwitchAccessory(this, homebridgeAccessory, device, deviceData);
         break;

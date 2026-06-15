@@ -82,7 +82,17 @@
               "type": "object",
               "properties": {
                 "deviceId": { "title": "Device Id", "type": "string" },
-                "isActive": { "title": "active", "type": "boolean", "default": true }
+                "protocol": {
+                  "title": "Apply to",
+                  "type": "string",
+                  "default": "hap",
+                  "oneOf": [
+                    { "title": "None", "enum": ["none"] },
+                    { "title": "HAP only", "enum": ["hap"] },
+                    { "title": "Matter only", "enum": ["matter"] },
+                    { "title": "Both", "enum": ["both"] }
+                  ]
+                }
               }
             }
           },
