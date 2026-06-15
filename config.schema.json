@@ -130,7 +130,8 @@
                     { "title": "Matter only", "enum": ["matter"] }
                   ]
                 }
-              }
+              },
+              "required": ["deviceId", "ignoreFor"]
             }
           },
           "debug": {
