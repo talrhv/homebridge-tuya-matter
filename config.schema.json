@@ -114,9 +114,24 @@
             }
           },
           "ignoreDevices": {
-            "title": "ignore specific devices by their device id.",
+            "title": "Ignore specific devices",
             "type": "array",
-            "items": { "title": "Device Id", "type": "string" }
+            "items": {
+              "type": "object",
+              "properties": {
+                "deviceId": { "title": "Device ID", "type": "string" },
+                "ignoreFor": {
+                  "title": "Ignore for",
+                  "type": "string",
+                  "default": "both",
+                  "oneOf": [
+                    { "title": "Both HAP and Matter", "enum": ["both"] },
+                    { "title": "HAP only", "enum": ["hap"] },
+                    { "title": "Matter only", "enum": ["matter"] }
+                  ]
+                }
+              }
+            }
           },
           "debug": {
             "title": "Enable Debug Logging",

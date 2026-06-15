@@ -260,6 +260,23 @@ class TuyaPlatform {
     }
   }
 
+  isDeviceIgnored(deviceId, protocol) {
+    const ignoreDevices = this.config?.options?.ignoreDevices ?? [];
+    if (!Array.isArray(ignoreDevices) || !deviceId) return false;
+
+    for (const entry of ignoreDevices) {
+      if (typeof entry === "string") {
+        if (entry === deviceId) return true;
+        continue;
+      }
+      if (entry?.deviceId !== deviceId) continue;
+      const ignoreFor = entry?.ignoreFor ?? "both";
+      if (ignoreFor === "both" || ignoreFor === protocol) return true;
+    }
+
+    return false;
+  }
+
   addAccessory(device) {
     if (this.disabled) {
       return;
@@ -277,9 +294,12 @@ class TuyaPlatform {
       return;
     }
 
-    const ignoreDevices = this.config?.options?.ignoreDevices ?? [];
-    if (Array.isArray(ignoreDevices) && ignoreDevices.includes(deviceId)) {
-      this.log.debug(`Ignoring device as per config: ${deviceName}`);
+    if (this.isDeviceIgnored(deviceId, "hap")) {
+      this.log.debug(`Ignoring device for HAP as per config: ${deviceName}`);
+      const cachedAccessory = this.accessories.get(uuid);
+      if (cachedAccessory) {
+        this.removeAccessory(cachedAccessory);
+      }
       return;
     }
 
