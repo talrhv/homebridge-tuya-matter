@@ -153,7 +153,7 @@
               "devices": {
                 "title": "Per-device UUID override",
                 "type": "array",
-                "description": "Force Apple Home to treat a specific device as brand-new. Use this when a device is stuck in a broken state (e.g. cannot be moved to a room after re-adding). Set a UUID Salt of 1 for the affected device and restart. Apple Home will see it as a new device with no prior history.",
+                "description": "Force Apple Home to treat a specific device as brand-new. Use this when a device is stuck in a broken state (e.g. cannot be moved to a room after re-adding). Set a UUID Salt of 1 for the affected device and restart. Apple Home will see it as a new device with no prior history. If the same issue occurs again in the future, simply increase the salt by 1 (to 2, then 3, etc.) and restart again.",
                 "items": {
                   "type": "object",
                   "properties": {
@@ -163,7 +163,7 @@
                       "type": "integer",
                       "default": 1,
                       "minimum": 1,
-                      "description": "Any value other than the previous one forces a fresh Apple Home identity for this device."
+                      "description": "Increment this by 1 each time you need to reset this device's Apple Home state. Keep the current value stable until the issue reoccurs."
                     }
                   },
                   "required": ["deviceId"]
