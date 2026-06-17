@@ -144,20 +144,31 @@
               "required": ["deviceId", "ignoreFor"]
             }
           },
-          "devices": {
-            "title": "Per-device Matter settings",
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "deviceId": { "title": "Device ID", "type": "string" },
-                "uuidSalt": {
-                  "title": "UUID Salt",
-                  "type": "string",
-                  "description": "Append a string to this device's Matter UUID. Use this to force Apple Home to treat the device as brand-new (useful when a device is stuck in a broken state after re-adding). Any non-empty string works — pick anything and keep it stable."
+          "troubleshooting": {
+            "title": "Troubleshooting",
+            "type": "object",
+            "expandable": true,
+            "expanded": false,
+            "properties": {
+              "devices": {
+                "title": "Per-device UUID override",
+                "type": "array",
+                "description": "Force Apple Home to treat a specific device as brand-new. Use this when a device is stuck in a broken state (e.g. cannot be moved to a room after re-adding). Set a UUID Salt of 1 for the affected device and restart. Apple Home will see it as a new device with no prior history.",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "deviceId": { "title": "Device ID", "type": "string" },
+                    "uuidSalt": {
+                      "title": "UUID Salt",
+                      "type": "integer",
+                      "default": 1,
+                      "minimum": 1,
+                      "description": "Any value other than the previous one forces a fresh Apple Home identity for this device."
+                    }
+                  },
+                  "required": ["deviceId"]
                 }
-              },
-              "required": ["deviceId"]
+              }
             }
           },
           "debug": {
