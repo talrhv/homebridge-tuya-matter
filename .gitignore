@@ -10,3 +10,4 @@ config
 .vscode
 .homebridge-debug
 docs/
+devices.md

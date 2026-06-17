@@ -144,6 +144,22 @@
               "required": ["deviceId", "ignoreFor"]
             }
           },
+          "devices": {
+            "title": "Per-device Matter settings",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "deviceId": { "title": "Device ID", "type": "string" },
+                "uuidSalt": {
+                  "title": "UUID Salt",
+                  "type": "string",
+                  "description": "Append a string to this device's Matter UUID. Use this to force Apple Home to treat the device as brand-new (useful when a device is stuck in a broken state after re-adding). Any non-empty string works — pick anything and keep it stable."
+                }
+              },
+              "required": ["deviceId"]
+            }
+          },
           "debug": {
             "title": "Enable Debug Logging",
             "type": "boolean",
