@@ -20,6 +20,26 @@ import LeakSensorAccessory from "../lib/accessories/hap/leak_sensor_accessory.mj
 import PushAccessory from "../lib/accessories/hap/push_accessory.mjs";
 import MotionSensorAccessory from "../lib/accessories/hap/motionsensor_accessory.mjs";
 import ValveAccessory from "../lib/accessories/hap/valve_accessory.mjs";
+import CoSensorAccessory from "../lib/accessories/hap/co_sensor_accessory.mjs";
+import Co2SensorAccessory from "../lib/accessories/hap/co2_sensor_accessory.mjs";
+import TempHumiditySensorAccessory from "../lib/accessories/hap/temp_humidity_sensor_accessory.mjs";
+import LightSensorAccessory from "../lib/accessories/hap/light_sensor_accessory.mjs";
+import AirQualitySensorAccessory from "../lib/accessories/hap/air_quality_sensor_accessory.mjs";
+import VibrationSensorAccessory from "../lib/accessories/hap/vibration_sensor_accessory.mjs";
+import WeatherStationAccessory from "../lib/accessories/hap/weather_station_accessory.mjs";
+import WirelessSwitchAccessory from "../lib/accessories/hap/wireless_switch_accessory.mjs";
+import DoorbellAccessory from "../lib/accessories/hap/doorbell_accessory.mjs";
+import SceneSwitchAccessory from "../lib/accessories/hap/scene_switch_accessory.mjs";
+import AirConditionerAccessory from "../lib/accessories/hap/air_conditioner_accessory.mjs";
+import SaunaAccessory from "../lib/accessories/hap/sauna_accessory.mjs";
+import HumidifierAccessory from "../lib/accessories/hap/humidifier_accessory.mjs";
+import DehumidifierAccessory from "../lib/accessories/hap/dehumidifier_accessory.mjs";
+import DiffuserAccessory from "../lib/accessories/hap/diffuser_accessory.mjs";
+import RangeHoodAccessory from "../lib/accessories/hap/range_hood_accessory.mjs";
+import WhiteNoiseLightAccessory from "../lib/accessories/hap/white_noise_light_accessory.mjs";
+import SecuritySystemAccessory from "../lib/accessories/hap/security_system_accessory.mjs";
+import PetFeederAccessory from "../lib/accessories/hap/pet_feeder_accessory.mjs";
+import CatToiletAccessory from "../lib/accessories/hap/cat_toilet_accessory.mjs";
 
 import LogUtil from "../util/logutil.mjs";
 import DataUtil from "../util/datautil.mjs";
@@ -388,6 +408,7 @@ class TuyaPlatform {
         break;
       case "rqbj":
       case "jwbj":
+      case "sj":
         deviceAccessory = new LeakSensorAccessory(
           this,
           homebridgeAccessory,
@@ -442,6 +463,161 @@ class TuyaPlatform {
           : new SwitchAccessory(this, homebridgeAccessory, device, deviceData);
         break;
       }
+      case "mc":
+        deviceAccessory = new WindowCoveringAccessory(
+          this,
+          homebridgeAccessory,
+          device,
+          { window: true },
+        );
+        break;
+      case "cobj":
+      case "cocgq":
+        deviceAccessory = new CoSensorAccessory(
+          this,
+          homebridgeAccessory,
+          device,
+        );
+        break;
+      case "co2bj":
+      case "co2cgq":
+        deviceAccessory = new Co2SensorAccessory(
+          this,
+          homebridgeAccessory,
+          device,
+        );
+        break;
+      case "wsdcg":
+        deviceAccessory = new TempHumiditySensorAccessory(
+          this,
+          homebridgeAccessory,
+          device,
+        );
+        break;
+      case "ldcg":
+        deviceAccessory = new LightSensorAccessory(
+          this,
+          homebridgeAccessory,
+          device,
+        );
+        break;
+      case "pm25":
+      case "pm2.5":
+      case "pm25cgq":
+      case "hjjcy":
+        deviceAccessory = new AirQualitySensorAccessory(
+          this,
+          homebridgeAccessory,
+          device,
+        );
+        break;
+      case "zd":
+        deviceAccessory = new VibrationSensorAccessory(
+          this,
+          homebridgeAccessory,
+          device,
+        );
+        break;
+      case "qxj":
+        deviceAccessory = new WeatherStationAccessory(
+          this,
+          homebridgeAccessory,
+          device,
+        );
+        break;
+      case "wxkg":
+        deviceAccessory = new WirelessSwitchAccessory(
+          this,
+          homebridgeAccessory,
+          device,
+        );
+        break;
+      case "wxml":
+        deviceAccessory = new DoorbellAccessory(
+          this,
+          homebridgeAccessory,
+          device,
+        );
+        break;
+      case "cjkg":
+        deviceAccessory = new SceneSwitchAccessory(
+          this,
+          homebridgeAccessory,
+          device,
+          this.dataUtil.getSubService(device.status),
+        );
+        break;
+      case "kt":
+      case "ktkzq":
+        deviceAccessory = new AirConditionerAccessory(
+          this,
+          homebridgeAccessory,
+          device,
+        );
+        break;
+      case "qtwk":
+        deviceAccessory = new SaunaAccessory(
+          this,
+          homebridgeAccessory,
+          device,
+        );
+        break;
+      case "jsq":
+        deviceAccessory = new HumidifierAccessory(
+          this,
+          homebridgeAccessory,
+          device,
+        );
+        break;
+      case "cs":
+        deviceAccessory = new DehumidifierAccessory(
+          this,
+          homebridgeAccessory,
+          device,
+        );
+        break;
+      case "xxj":
+        deviceAccessory = new DiffuserAccessory(
+          this,
+          homebridgeAccessory,
+          device,
+        );
+        break;
+      case "yyj":
+        deviceAccessory = new RangeHoodAccessory(
+          this,
+          homebridgeAccessory,
+          device,
+        );
+        break;
+      case "bzyd":
+        deviceAccessory = new WhiteNoiseLightAccessory(
+          this,
+          homebridgeAccessory,
+          device,
+        );
+        break;
+      case "mal":
+        deviceAccessory = new SecuritySystemAccessory(
+          this,
+          homebridgeAccessory,
+          device,
+        );
+        break;
+      case "cwwsq":
+        deviceAccessory = new PetFeederAccessory(
+          this,
+          homebridgeAccessory,
+          device,
+        );
+        break;
+      case "msp":
+        deviceAccessory = new CatToiletAccessory(
+          this,
+          homebridgeAccessory,
+          device,
+        );
+        break;
       default:
         this.log.debug(`Unsupported device type: ${deviceType}`);
         return;
