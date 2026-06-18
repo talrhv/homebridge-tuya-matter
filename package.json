@@ -6,7 +6,7 @@
   "main": "index.mjs",
   "scripts": {
     "dev": "homebridge -D -U ./config/",
-    "test": "node --test"
+    "test": "node --test test/datautil.test.mjs test/tuyashopenapi.test.mjs test/tuyamqttapi.test.mjs"
   },
   "keywords": [
     "homebridge-plugin",
