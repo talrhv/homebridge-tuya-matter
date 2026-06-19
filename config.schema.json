@@ -109,7 +109,7 @@
                   "type": "integer",
                   "default": 0,
                   "oneOf": [
-                    { "title": "0", "enum": [0] },
+                    { "title": "OFF", "enum": [0] },
                     { "title": "15", "enum": [15] },
                     { "title": "30", "enum": [30] },
                     { "title": "45", "enum": [45] },
@@ -120,7 +120,8 @@
                     { "title": "120", "enum": [120] }
                   ]
                 }
-              }
+              },
+              "required": ["overrideTuya"]
             }
           },
           "ignoreDevices": {
