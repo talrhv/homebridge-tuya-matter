@@ -540,6 +540,7 @@ class TuyaPlatform {
         );
         break;
       case "cjkg":
+      case "wxkg":
         deviceAccessory = new SceneSwitchAccessory(
           this,
           homebridgeAccessory,
