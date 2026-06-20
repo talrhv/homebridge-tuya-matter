@@ -210,6 +210,12 @@
                 "default": "tuya",
                 "description": "Messages publish to <prefix>/<deviceId>/status."
               },
+              "datapointTopics": {
+                "title": "Also publish each datapoint to its own topic",
+                "type": "boolean",
+                "default": true,
+                "description": "Publishes <prefix>/<deviceId>/<code> with the bare scaled value, so single-value consumers like the Broadlink RM plugin can read it directly."
+              },
               "retain": {
                 "title": "Retain last message per device",
                 "type": "boolean",
