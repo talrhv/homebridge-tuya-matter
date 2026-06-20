@@ -4,6 +4,7 @@ import TuyaOpenAPI from "../lib/tuyaopenapi.mjs";
 import TuyaSHOpenAPI from "../lib/tuyashopenapi.mjs";
 import TuyaOpenMQ from "../lib/tuyamqttapi.mjs";
 import TuyaMatterBridge from "../lib/matter_support.mjs";
+import MqttPublisher, { buildPayload } from "../lib/mqtt_publisher.mjs";
 
 // HAP Accessories
 import OutletAccessory from "../lib/accessories/hap/outlet_accessory.mjs";
@@ -125,6 +126,7 @@ class TuyaPlatform {
 
   cleanup() {
     this.tuyaOpenMQ?.stop();
+    this.mqttPublisher?.stop();
     this.matterBridge.cleanup();
   }
 
@@ -250,6 +252,12 @@ class TuyaPlatform {
       this.tuyaOpenMQ = mq;
       mq.start();
       mq.addMessageListener(this.onMQTTMessage);
+
+      this.mqttPublisher = new MqttPublisher({
+        ...(this.config?.options?.mqttPublish ?? {}),
+        log: this.log,
+      });
+      this.mqttPublisher.start();
 
       this.log.debug(
         "[Matter] Using MQTT events for device -> Home app state synchronization.",
@@ -457,6 +465,16 @@ class TuyaPlatform {
     const deviceId = message?.devId;
     if (this.disabled || !deviceId) {
       return;
+    }
+
+    if (this.mqttPublisher?.shouldPublish(deviceId)) {
+      try {
+        const device = this.devices.find((d) => d.id === deviceId);
+        this.mqttPublisher.publish(deviceId, buildPayload(message, device));
+      } catch (error) {
+        this.log.error(`Failed to republish MQTT for ${deviceId}.`);
+        this.log.error(error);
+      }
     }
 
     if (message.bizCode === "delete") {

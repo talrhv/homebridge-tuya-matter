@@ -172,6 +172,51 @@
               }
             }
           },
+          "mqttPublish": {
+            "title": "Republish to MQTT broker",
+            "type": "object",
+            "expandable": true,
+            "expanded": false,
+            "description": "Republish Tuya cloud device updates to your own local MQTT broker (e.g. homebridge-aedes or Mosquitto) so other apps on your network can listen. The service only starts if it is enabled AND at least one device ID is listed.",
+            "properties": {
+              "enabled": {
+                "title": "Republish Tuya updates to an MQTT broker",
+                "type": "boolean",
+                "default": false
+              },
+              "url": {
+                "title": "Broker URL",
+                "type": "string",
+                "placeholder": "mqtt://127.0.0.1:1883",
+                "description": "URL of your MQTT broker (e.g. homebridge-aedes or Mosquitto)."
+              },
+              "devices": {
+                "title": "Device IDs to publish",
+                "type": "array",
+                "description": "Only these device IDs are republished. Leave empty to keep the service OFF — if no device IDs are listed, the publisher does not start.",
+                "items": { "title": "Device ID", "type": "string" }
+              },
+              "username": {
+                "title": "Username (optional)",
+                "type": "string"
+              },
+              "password": {
+                "title": "Password (optional)",
+                "type": "string"
+              },
+              "topicPrefix": {
+                "title": "Topic prefix",
+                "type": "string",
+                "default": "tuya",
+                "description": "Messages publish to <prefix>/<deviceId>/status."
+              },
+              "retain": {
+                "title": "Retain last message per device",
+                "type": "boolean",
+                "default": true
+              }
+            }
+          },
           "debug": {
             "title": "Enable Debug Logging",
             "type": "boolean",
