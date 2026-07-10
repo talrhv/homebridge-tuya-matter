@@ -87,7 +87,6 @@
                   "type": "string",
                   "default": "hap",
                   "oneOf": [
-                    { "title": "None", "enum": ["none"] },
                     { "title": "HAP only", "enum": ["hap"] },
                     { "title": "Matter only", "enum": ["matter"] },
                     { "title": "Both", "enum": ["both"] }
