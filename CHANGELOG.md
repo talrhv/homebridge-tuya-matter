@@ -2,6 +2,33 @@
 
 All notable changes to this project are documented in this file.
 
+## 1.1.0-beta3
+
+### Added — Republish device updates to a local MQTT broker
+
+- **New "Republish to MQTT broker" option.** The plugin can now forward the real-time
+  device updates it already receives from the Tuya cloud to your own local MQTT broker
+  (e.g. [homebridge-aedes](https://www.npmjs.com/package/homebridge-aedes) or Mosquitto),
+  so any app on your network can consume them — for example, feeding a live temperature
+  reading from a Tuya sensor into another Homebridge accessory such as the Broadlink RM
+  plugin's AC.
+- **Opt-in and scoped by design.** The publisher acts purely as an MQTT *client* (it does
+  not host a broker) and is **off by default**. It only starts when it is enabled **and**
+  at least one device ID is listed in the allowlist — no broker connection is attempted
+  otherwise. Configure it under the new **`mqttPublish`** section: `enabled`, broker `url`,
+  the `devices` allowlist, optional `username`/`password`, `topicPrefix` (default `tuya`),
+  `retain`, and `datapointTopics`.
+- **Topic layout.** Each allowlisted device publishes:
+  - a per-device JSON snapshot to `` `<prefix>/<deviceId>/status` `` containing every
+    reported datapoint, and
+  - (when `datapointTopics` is on, the default) one bare value per datapoint to
+    `` `<prefix>/<deviceId>/<code>` `` — e.g. `tuya/<id>/va_temperature` → `23.5` — so
+    single-value consumers can subscribe directly.
+- **Automatic value scaling.** Tuya reports decimals as scaled integers; the published
+  payload includes both the raw `value` and a `scaled` value derived from each datapoint's
+  spec (`scaled = raw / 10^scale`, e.g. `235` → `23.5`), along with the `unit` when known.
+- Reuses the existing `mqtt` dependency — no new dependencies added.
+
 ## 1.1.0-beta
 
 > ⚠️ **Beta release.** This version adds a large batch of new device types. Support
