@@ -2,6 +2,16 @@
 
 All notable changes to this project are documented in this file.
 
+## 1.0.9
+
+### Fixed — Configuration UI
+
+- **Removed the duplicate "None" option in the "switch with timer" (valve) dropdown.**
+  The `protocol` selector explicitly declared a `None` choice while the config UI also
+  adds its own empty "unset" placeholder, so the list showed "None" twice. The explicit
+  option was redundant — leaving a device out of the valve list already produces a plain
+  Switch — so it has been removed.
+
 ## 1.0.8
 
 ### Fixed — Switches misdetected as valves
