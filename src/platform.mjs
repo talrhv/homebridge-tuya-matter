@@ -645,13 +645,19 @@ class TuyaPlatform {
       return;
     }
 
-    if (this.mqttPublisher?.shouldPublish(deviceId)) {
-      try {
-        const device = this.devices.find((d) => d.id === deviceId);
-        this.mqttPublisher.publish(deviceId, buildPayload(message, device));
-      } catch (error) {
-        this.log.error(`Failed to republish MQTT for ${deviceId}.`);
-        this.log.error(error);
+    if (this.mqttPublisher) {
+      const willPublish = this.mqttPublisher.shouldPublish(deviceId);
+      this.log.info(
+        `[MQTT publish] incoming message for ${deviceId} — willPublish=${willPublish} (connected=${this.mqttPublisher.connected})`,
+      );
+      if (willPublish) {
+        try {
+          const device = this.devices.find((d) => d.id === deviceId);
+          this.mqttPublisher.publish(deviceId, buildPayload(message, device));
+        } catch (error) {
+          this.log.error(`Failed to republish MQTT for ${deviceId}.`);
+          this.log.error(error);
+        }
       }
     }
 
