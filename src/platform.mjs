@@ -435,7 +435,9 @@ class TuyaPlatform {
         const valveConfig = (this.config?.options?.valve || []).find(
           (entry) => entry?.deviceId === deviceId,
         );
-        const valveProtocol = valveConfig?.protocol ?? "hap";
+        // kg is Tuya's generic switch category. Treat it as a Switch by default;
+        // only expose it as a Valve when the device is explicitly configured as one.
+        const valveProtocol = valveConfig?.protocol;
         const useValveForHap = valveProtocol === "hap" || valveProtocol === "both";
         deviceAccessory = useValveForHap
           ? new ValveAccessory(this, homebridgeAccessory, device, deviceData)

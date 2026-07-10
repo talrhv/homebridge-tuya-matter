@@ -2,6 +2,22 @@
 
 All notable changes to this project are documented in this file.
 
+## 1.0.8
+
+### Fixed — Switches misdetected as valves
+
+- **`kg`-category devices (wall/light switches) are no longer exposed as valves by
+  default.** Tuya's `kg` category covers generic switches, but the plugin defaulted
+  these to a Valve accessory unless a `valve` config entry said otherwise. As a result,
+  ordinary light switches showed up in Apple Home as faucets/valves.
+- **Multi-gang switches now expose every gang again.** Because the mis-mapped Valve
+  accessory has no multi-gang support, an affected 2-gang switch collapsed to a single
+  valve service. With the correct Switch mapping, each gang (`switch_1`, `switch_2`, …)
+  gets its own service.
+- Valve behavior is now **opt-in**: to expose a `kg` device as a valve, add a `valve`
+  entry for its Device Id in the plugin config with `protocol` set to `hap`, `matter`,
+  or `both`.
+
 ## 1.0.6
 
 ### Fixed — Motion sensor override timer
